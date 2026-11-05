@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – FoodRush</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="auth-page">
+<div class="container">
+  <div class="auth-card fade-in">
+    <div class="text-center mb-4">
+      <a href="index.html" class="navbar-brand mb-2 d-block"><i class="fas fa-utensils me-2"></i>FoodRush</a>
+      <h1 class="auth-title">Welcome Back!</h1>
+      <p class="text-muted">Sign in to order your favourite food</p>
+    </div>
+    <div class="alert alert-info small"><i class="fas fa-info-circle me-2"></i>Demo: Any valid email + password (6+ chars)</div>
+    <form id="loginForm" novalidate>
+      <div class="mb-3"><label class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" required placeholder="you@example.com"/>
+        <div class="invalid-feedback">Enter valid email.</div></div>
+      <div class="mb-3"><label class="form-label">Password</label>
+        <div class="password-field">
+          <input type="password" class="form-control" id="password" required minlength="6" placeholder="Password"/>
+          <button type="button" class="password-toggle" onclick="togglePw()"><i class="fas fa-eye"></i></button>
+        </div><div class="invalid-feedback">Min 6 characters.</div></div>
+      <div class="d-flex justify-content-between mb-3">
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="remember"/><label class="form-check-label" for="remember">Remember me</label></div>
+        <a href="#" class="text-danger small text-decoration-none">Forgot Password?</a>
+      </div>
+      <div id="err" class="alert alert-danger d-none small"></div>
+      <button type="submit" class="btn-primary-custom"><i class="fas fa-sign-in-alt me-2"></i>Sign In</button>
+    </form>
+    <p class="text-center small mt-3">New here? <a href="register.html" class="text-danger fw-600 text-decoration-none">Create Account</a></p>
+    <div class="text-center mt-3"><button class="theme-toggle" onclick="toggleTheme()"></button></div>
+  </div>
+</div>
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/data.js"></script>
+<script>
+  function togglePw() {
+    const i = document.getElementById('password');
+    i.type = i.type === 'text' ? 'password' : 'text';
+  }
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); this.classList.add('was-validated');
+    if (!this.checkValidity()) return;
+    const email = document.getElementById('email').value;
+    const pw = document.getElementById('password').value;
+    setTimeout(() => {
+      const name = email.split('@')[0].replace(/\b\w/g, c => c.toUpperCase());
+      sessionStorage.setItem('foodrush_user', JSON.stringify({ name, email }));
+      showToast('Welcome back! 🎉', 'success');
+      setTimeout(() => window.location.href = 'index.html', 1000);
+    }, 1000);
+  });
+</script>
+</body>
+</html>

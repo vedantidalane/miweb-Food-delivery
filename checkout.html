@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Checkout – FoodRush</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="css/style.css"/></head>
+<body>
+<nav class="navbar navbar-expand-lg"><div class="container">
+  <a class="navbar-brand" href="index.html"><i class="fas fa-utensils me-2"></i>FoodRush</a>
+  <div class="ms-auto d-flex gap-3 align-items-center">
+    <a href="cart.html" class="nav-link"><i class="fas fa-shopping-cart me-1"></i>Cart <span class="cart-badge" id="cartCount">0</span></a>
+    <button class="theme-toggle" onclick="toggleTheme()"></button>
+  </div>
+</div></nav>
+<div class="container py-5">
+  <h1 class="section-title mb-4">Checkout</h1>
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <!-- Delivery Address -->
+      <div class="p-4 mb-4 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);">
+        <h5 class="fw-700 mb-3"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Delivery Address</h5>
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label">Full Name *</label><input type="text" class="form-control" id="name" required placeholder="John Doe"/></div>
+          <div class="col-md-6"><label class="form-label">Phone *</label><input type="tel" class="form-control" id="phone" required placeholder="9876543210"/></div>
+          <div class="col-12"><label class="form-label">Address *</label><input type="text" class="form-control" id="addr" required placeholder="Flat/House, Street, Area"/></div>
+          <div class="col-md-6"><label class="form-label">City *</label><input type="text" class="form-control" id="city" required placeholder="Mumbai"/></div>
+          <div class="col-md-6"><label class="form-label">Pincode *</label><input type="text" class="form-control" id="pin" required placeholder="400001" maxlength="6"/></div>
+        </div>
+      </div>
+      <!-- Payment Method -->
+      <div class="p-4 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);">
+        <h5 class="fw-700 mb-3"><i class="fas fa-credit-card me-2 text-danger"></i>Payment Method</h5>
+        <div class="payment-method active" id="pm-upi" onclick="selPay('upi')">
+          <div style="font-size:1.5rem;">📱</div><div><div class="fw-600">UPI</div><div class="small text-muted">GPay, PhonePe, Paytm</div></div>
+        </div>
+        <div class="payment-method" id="pm-card" onclick="selPay('card')">
+          <div style="font-size:1.5rem;">💳</div><div><div class="fw-600">Card</div><div class="small text-muted">Credit / Debit</div></div>
+        </div>
+        <div class="payment-method" id="pm-cod" onclick="selPay('cod')">
+          <div style="font-size:1.5rem;">💵</div><div><div class="fw-600">Cash on Delivery</div><div class="small text-muted">Pay on arrival</div></div>
+        </div>
+        <div id="upiPanel" class="mt-3"><input type="text" class="form-control" id="upiId" placeholder="yourname@upi"/></div>
+        <div id="cardPanel" class="mt-3 d-none">
+          <div class="row g-2">
+            <div class="col-12"><input type="text" class="form-control" placeholder="Card Number" maxlength="19"/></div>
+            <div class="col-6"><input type="text" class="form-control" placeholder="MM/YY" maxlength="5"/></div>
+            <div class="col-6"><input type="password" class="form-control" placeholder="CVV" maxlength="4"/></div>
+          </div>
+          <div class="alert alert-warning small mt-2">Demo only – do not enter real card details.</div>
+        </div>
+        <div id="codPanel" class="mt-3 d-none"><div class="alert alert-info small">Pay with cash when your food arrives. 💵</div></div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="cart-panel">
+        <h5 class="fw-700 mb-3">Order Summary</h5>
+        <div id="chkSummary"></div>
+        <div id="errMsg" class="d-none"></div>
+        <button class="btn btn-danger w-100 rounded-pill mt-3 fw-700" onclick="placeOrder()">
+          <span id="spinner" class="spinner-border spinner-border-sm me-2 d-none"></span>
+          <i class="fas fa-check me-2"></i>Place Order
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/theme.js"></script><script src="js/data.js"></script><script src="js/cart.js"></script>
+<script>
+  let selPayment = 'upi';
+  document.addEventListener('DOMContentLoaded', () => { updateCartCount(); renderChkSummary(); });
+  function selPay(t) {
+    selPayment = t;
+    ['upi','card','cod'].forEach(x => { document.getElementById(`pm-${x}`).classList.toggle('active', x===t); document.getElementById(`${x}Panel`).classList.toggle('d-none', x!==t); });
+  }
+  function renderChkSummary() {
+    const cart = getCart(); const { subtotal, discount, deliveryFee, total } = getCartTotals();
+    document.getElementById('chkSummary').innerHTML = `
+      ${cart.map(i=>`<div class="d-flex justify-content-between small mb-1"><span>${i.name} ×${i.qty}</span><span>₹${i.price*i.qty}</span></div>`).join('')}
+      <hr/>
+      <div class="summary-row"><span>Subtotal</span><span>₹${subtotal}</span></div>
+      ${discount?`<div class="summary-row text-success"><span>Discount</span><span>-₹${discount}</span></div>`:''}
+      <div class="summary-row"><span>Delivery</span><span>${deliveryFee?'₹'+deliveryFee:'FREE'}</span></div>
+      <div class="summary-total"><span>Total</span><span class="text-danger">₹${total}</span></div>`;
+  }
+  function placeOrder() {
+    const required = ['name','phone','addr','city','pin'];
+    let valid = true;
+    required.forEach(id => { const el = document.getElementById(id); if(!el.value.trim()){el.classList.add('is-invalid');valid=false;}else el.classList.remove('is-invalid'); });
+    if (!valid) { showToast('Please fill all required fields.','danger'); return; }
+    const sp = document.getElementById('spinner');
+    sp.classList.remove('d-none');
+    setTimeout(() => {
+      sp.classList.add('d-none');
+      localStorage.removeItem('foodrush_cart');
+      localStorage.removeItem('foodrush_coupon');
+      const ref = 'FR' + Date.now().toString().slice(-8);
+      sessionStorage.setItem('foodrush_order', JSON.stringify({ ref, name: document.getElementById('name').value }));
+      window.location.href = 'order-confirmation.html';
+    }, 2000);
+  }
+</script>
+</body>
+</html>

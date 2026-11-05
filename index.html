@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FoodRush – Fast Food Delivery</title>
+  <meta name="description" content="Order food from your favourite restaurants. Fast delivery, great taste with FoodRush."/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><i class="fas fa-utensils me-2"></i>FoodRush</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <form class="d-flex mx-auto" style="max-width:400px;">
+        <input class="form-control" type="search" id="heroSearch" placeholder="Search restaurants or dishes…" style="border-radius:25px 0 0 25px;"/>
+        <button class="btn btn-danger" type="button" style="border-radius:0 25px 25px 0;" onclick="searchRestaurants()"><i class="fas fa-search"></i></button>
+      </form>
+      <ul class="navbar-nav ms-3 align-items-center gap-2">
+        <li class="nav-item"><a class="nav-link" href="restaurants.html"><i class="fas fa-store me-1"></i>Restaurants</a></li>
+        <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart me-1"></i>Cart <span class="cart-badge" id="cartCount">0</span></a></li>
+        <li class="nav-item" id="authNav"><a class="nav-link" href="login.html"><i class="fas fa-user me-1"></i>Login</a></li>
+        <li class="nav-item"><button class="theme-toggle" onclick="toggleTheme()"></button></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 fade-in">
+        <span class="hero-badge">🚀 30-Min Delivery Guaranteed</span>
+        <h1>Hungry? We've got you covered!</h1>
+        <p class="mt-3 mb-4 opacity-90">Order from 200+ restaurants. Get hot food delivered to your doorstep in 30 minutes or less.</p>
+        <a href="restaurants.html" class="btn btn-light rounded-pill px-4 fw-700 me-3"><i class="fas fa-store me-2"></i>Browse Restaurants</a>
+        <a href="menu.html" class="btn btn-outline-light rounded-pill px-4">View Menu</a>
+      </div>
+      <div class="col-lg-6 mt-4 mt-lg-0 text-center">
+        <div style="font-size:8rem; animation: pulse 2s infinite;">🍔</div>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+          <div class="text-center"><div class="fw-800 fs-3">200+</div><div class="opacity-75 small">Restaurants</div></div>
+          <div style="width:1px;background:rgba(255,255,255,.3);"></div>
+          <div class="text-center"><div class="fw-800 fs-3">50K+</div><div class="opacity-75 small">Happy Users</div></div>
+          <div style="width:1px;background:rgba(255,255,255,.3);"></div>
+          <div class="text-center"><div class="fw-800 fs-3">30min</div><div class="opacity-75 small">Avg Delivery</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="section-title mb-4">What's On Your Mind?</h2>
+    <div class="row g-3 text-center">
+      <div class="col-4 col-md-2" onclick="window.location='menu.html?cat=burger'">
+        <div class="p-3 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);cursor:pointer;transition:all .3s;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border-color)'">
+          <div style="font-size:2.5rem;">🍔</div><div class="small fw-600 mt-1">Burgers</div>
+        </div>
+      </div>
+      <div class="col-4 col-md-2" onclick="window.location='menu.html?cat=pizza'">
+        <div class="p-3 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);cursor:pointer;transition:all .3s;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border-color)'">
+          <div style="font-size:2.5rem;">🍕</div><div class="small fw-600 mt-1">Pizza</div>
+        </div>
+      </div>
+      <div class="col-4 col-md-2" onclick="window.location='menu.html?cat=biryani'">
+        <div class="p-3 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);cursor:pointer;transition:all .3s;">
+          <div style="font-size:2.5rem;">🍛</div><div class="small fw-600 mt-1">Biryani</div>
+        </div>
+      </div>
+      <div class="col-4 col-md-2" onclick="window.location='menu.html?cat=chinese'">
+        <div class="p-3 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);cursor:pointer;transition:all .3s;">
+          <div style="font-size:2.5rem;">🥡</div><div class="small fw-600 mt-1">Chinese</div>
+        </div>
+      </div>
+      <div class="col-4 col-md-2" onclick="window.location='menu.html?cat=dessert'">
+        <div class="p-3 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);cursor:pointer;transition:all .3s;">
+          <div style="font-size:2.5rem;">🍰</div><div class="small fw-600 mt-1">Desserts</div>
+        </div>
+      </div>
+      <div class="col-4 col-md-2" onclick="window.location='menu.html?cat=drinks'">
+        <div class="p-3 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);cursor:pointer;transition:all .3s;">
+          <div style="font-size:2.5rem;">🍹</div><div class="small fw-600 mt-1">Drinks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOP RESTAURANTS -->
+<section class="py-5" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="section-title">Top Restaurants Near You</h2>
+      <a href="restaurants.html" class="btn btn-outline-danger rounded-pill">View All</a>
+    </div>
+    <div class="row g-4" id="topRestaurants"></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-5" style="&::after{left:50%;transform:translateX(-50%)};">How It Works</h2>
+    <div class="row g-4 text-center">
+      <div class="col-md-3">
+        <div class="p-4 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);box-shadow:var(--shadow);">
+          <div class="mb-3" style="width:60px;height:60px;background:linear-gradient(135deg,#ff4757,#ffa502);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:1.5rem;">📍</div>
+          <h5 class="fw-700">Set Location</h5><p class="text-muted small">Enter your delivery address to find restaurants near you.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-4 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);box-shadow:var(--shadow);">
+          <div class="mb-3" style="width:60px;height:60px;background:linear-gradient(135deg,#ffa502,#ff6b81);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:1.5rem;">🍽️</div>
+          <h5 class="fw-700">Choose Food</h5><p class="text-muted small">Browse menus and pick your favourite dishes.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-4 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);box-shadow:var(--shadow);">
+          <div class="mb-3" style="width:60px;height:60px;background:linear-gradient(135deg,#2ed573,#17c0eb);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:1.5rem;">💳</div>
+          <h5 class="fw-700">Pay Securely</h5><p class="text-muted small">Pay online with UPI, card or cash on delivery.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-4 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);box-shadow:var(--shadow);">
+          <div class="mb-3" style="width:60px;height:60px;background:linear-gradient(135deg,#6c63ff,#ff6584);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:1.5rem;">🚴</div>
+          <h5 class="fw-700">Fast Delivery</h5><p class="text-muted small">Get your order delivered in 30 minutes or less!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand mb-3"><i class="fas fa-utensils me-2"></i>FoodRush</div>
+        <p class="opacity-75">Delivering happiness to your doorstep with hot, fresh food from top restaurants.</p>
+      </div>
+      <div class="col-lg-2 col-6"><h5>Quick Links</h5>
+        <a href="restaurants.html">Restaurants</a>
+        <a href="menu.html">Menu</a>
+        <a href="cart.html">Cart</a>
+        <a href="checkout.html">Checkout</a>
+      </div>
+      <div class="col-lg-2 col-6"><h5>Account</h5>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      </div>
+      <div class="col-lg-4"><h5>Download App</h5>
+        <p class="opacity-75">Get the FoodRush app for a better experience.</p>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-light btn-sm rounded-pill"><i class="fab fa-apple me-2"></i>App Store</button>
+          <button class="btn btn-outline-light btn-sm rounded-pill"><i class="fab fa-google-play me-2"></i>Google Play</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom text-center"><p class="mb-0 opacity-75">© 2024 FoodRush. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => { updateCartCount(); checkAuth(); renderTopRestaurants(); });
+  function renderTopRestaurants() {
+    const top = RESTAURANTS.slice(0,4);
+    document.getElementById('topRestaurants').innerHTML = top.map(renderRestCard).join('');
+  }
+  function renderRestCard(r) {
+    return `<div class="col-md-6 col-lg-3">
+      <div class="rest-card" onclick="window.location='menu.html?rid=${r.id}'">
+        <img src="${r.image}" alt="${r.name}" loading="lazy"/>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <h6 class="fw-700 mb-1">${r.name}</h6>
+            <span class="rest-badge ${r.open?'':'closed'}">${r.open?'Open':'Closed'}</span>
+          </div>
+          <div class="mb-2">${r.cuisines.map(c=>`<span class="cuisine-tag">${c}</span>`).join('')}</div>
+          <div class="d-flex justify-content-between align-items-center small text-muted">
+            <span class="rating">★ ${r.rating} <span class="text-muted">(${r.reviews})</span></span>
+            <span><i class="fas fa-clock me-1"></i>${r.deliveryTime}</span>
+          </div>
+          <div class="small text-muted mt-1"><i class="fas fa-motorcycle me-1"></i>${r.deliveryFee===0?'Free Delivery':'₹'+r.deliveryFee+' delivery'} · Min ₹${r.minOrder}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+  function searchRestaurants() {
+    const q = document.getElementById('heroSearch').value.trim();
+    if (q) window.location.href = `restaurants.html?search=${encodeURIComponent(q)}`;
+  }
+</script>
+</body>
+</html>
