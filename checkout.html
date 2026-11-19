@@ -6,13 +6,28 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <link rel="stylesheet" href="css/style.css"/></head>
 <body>
-<nav class="navbar navbar-expand-lg"><div class="container">
-  <a class="navbar-brand" href="index.html"><i class="fas fa-utensils me-2"></i>FoodRush</a>
-  <div class="ms-auto d-flex gap-3 align-items-center">
-    <a href="cart.html" class="nav-link"><i class="fas fa-shopping-cart me-1"></i>Cart <span class="cart-badge" id="cartCount">0</span></a>
-    <button class="theme-toggle" onclick="toggleTheme()"></button>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><i class="fas fa-utensils me-2"></i>FoodRush</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-center gap-2">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="restaurants.html"><i class="fas fa-store me-1"></i>Restaurants</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html"><i class="fas fa-utensils me-1"></i>Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fas fa-box me-1"></i>Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart me-1"></i>Cart <span class="cart-badge" id="cartCount">0</span></a></li>
+        <li class="nav-item" id="authNav"><a class="nav-link" href="login.html"><i class="fas fa-user me-1"></i>Login</a></li>
+        <li class="nav-item"><button class="theme-toggle" onclick="toggleTheme()"></button></li>
+      </ul>
+    </div>
   </div>
-</div></nav>
+</nav>
+
 <div class="container py-5">
   <h1 class="section-title mb-4">Checkout</h1>
   <div class="row g-4">
@@ -21,11 +36,31 @@
       <div class="p-4 mb-4 rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color);">
         <h5 class="fw-700 mb-3"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Delivery Address</h5>
         <div class="row g-3">
-          <div class="col-md-6"><label class="form-label">Full Name *</label><input type="text" class="form-control" id="name" required placeholder="John Doe"/></div>
-          <div class="col-md-6"><label class="form-label">Phone *</label><input type="tel" class="form-control" id="phone" required placeholder="9876543210"/></div>
-          <div class="col-12"><label class="form-label">Address *</label><input type="text" class="form-control" id="addr" required placeholder="Flat/House, Street, Area"/></div>
-          <div class="col-md-6"><label class="form-label">City *</label><input type="text" class="form-control" id="city" required placeholder="Mumbai"/></div>
-          <div class="col-md-6"><label class="form-label">Pincode *</label><input type="text" class="form-control" id="pin" required placeholder="400001" maxlength="6"/></div>
+          <div class="col-md-6">
+            <label class="form-label">Full Name *</label>
+            <input type="text" class="form-control" id="name" required placeholder="John Doe"/>
+            <div class="invalid-feedback">Please enter your name</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone *</label>
+            <input type="tel" class="form-control" id="phone" required placeholder="9876543210" maxlength="10"/>
+            <div class="invalid-feedback">Enter valid 10-digit phone number</div>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Address *</label>
+            <input type="text" class="form-control" id="addr" required placeholder="Flat/House, Street, Area"/>
+            <div class="invalid-feedback">Please enter your address</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">City *</label>
+            <input type="text" class="form-control" id="city" required placeholder="Mumbai"/>
+            <div class="invalid-feedback">Please enter your city</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Pincode *</label>
+            <input type="text" class="form-control" id="pin" required placeholder="400001" maxlength="6"/>
+            <div class="invalid-feedback">Enter valid 6-digit pincode</div>
+          </div>
         </div>
       </div>
       <!-- Payment Method -->
@@ -55,6 +90,7 @@
     <div class="col-lg-5">
       <div class="cart-panel">
         <h5 class="fw-700 mb-3">Order Summary</h5>
+        <div id="chkEstimate"></div>
         <div id="chkSummary"></div>
         <div id="errMsg" class="d-none"></div>
         <button class="btn btn-danger w-100 rounded-pill mt-3 fw-700" onclick="placeOrder()">
@@ -65,40 +101,134 @@
     </div>
   </div>
 </div>
+
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand mb-3"><i class="fas fa-utensils me-2"></i>FoodRush</div>
+        <p class="opacity-75">Delivering happiness to your doorstep with hot, fresh food from top restaurants.</p>
+      </div>
+      <div class="col-lg-2 col-6"><h5>Quick Links</h5>
+        <a href="restaurants.html">Restaurants</a><a href="menu.html">Menu</a><a href="orders.html">Orders</a><a href="cart.html">Cart</a>
+      </div>
+      <div class="col-lg-2 col-6"><h5>Account</h5><a href="login.html">Login</a><a href="orders.html">My Orders</a></div>
+      <div class="col-lg-4"><h5>Download App</h5><p class="opacity-75">Get the FoodRush app for a better experience.</p></div>
+    </div>
+    <div class="footer-bottom text-center"><p class="mb-0 opacity-75">© 2024 FoodRush. All rights reserved.</p></div>
+  </div>
+</footer>
+
 <div class="toast-container" id="toastContainer"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/theme.js"></script><script src="js/data.js"></script><script src="js/cart.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/customization.js"></script>
+<script src="js/orders.js"></script>
 <script>
   let selPayment = 'upi';
-  document.addEventListener('DOMContentLoaded', () => { updateCartCount(); renderChkSummary(); });
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+    checkAuth();
+    renderChkSummary();
+    loadSavedAddress();
+
+    // Real-time validation
+    ['name','phone','addr','city','pin'].forEach(id => {
+      document.getElementById(id).addEventListener('input', function() {
+        validateField(this);
+      });
+    });
+  });
+
+  function loadSavedAddress() {
+    const saved = JSON.parse(localStorage.getItem('foodrush_address') || 'null');
+    if (saved) {
+      if (saved.name) document.getElementById('name').value = saved.name;
+      if (saved.phone) document.getElementById('phone').value = saved.phone;
+      if (saved.addr) document.getElementById('addr').value = saved.addr;
+      if (saved.city) document.getElementById('city').value = saved.city;
+      if (saved.pin) document.getElementById('pin').value = saved.pin;
+    }
+  }
+
+  function validateField(el) {
+    const id = el.id;
+    let valid = !!el.value.trim();
+    if (id === 'phone') valid = /^\d{10}$/.test(el.value.trim());
+    if (id === 'pin') valid = /^\d{6}$/.test(el.value.trim());
+    el.classList.toggle('is-invalid', !valid);
+    el.classList.toggle('is-valid', valid);
+    return valid;
+  }
+
   function selPay(t) {
     selPayment = t;
     ['upi','card','cod'].forEach(x => { document.getElementById(`pm-${x}`).classList.toggle('active', x===t); document.getElementById(`${x}Panel`).classList.toggle('d-none', x!==t); });
   }
+
   function renderChkSummary() {
-    const cart = getCart(); const { subtotal, discount, deliveryFee, total } = getCartTotals();
+    const cart = getCart();
+    const { subtotal, discount, deliveryFee, total, deliveryBreakdown } = getCartTotals();
+    const est = estimateDeliveryTime(cart);
+
+    document.getElementById('chkEstimate').innerHTML = est ? renderDeliveryEstimate(cart) : '';
+
     document.getElementById('chkSummary').innerHTML = `
-      ${cart.map(i=>`<div class="d-flex justify-content-between small mb-1"><span>${i.name} ×${i.qty}</span><span>₹${i.price*i.qty}</span></div>`).join('')}
+      ${cart.map(i => {
+        const custSummary = typeof getCustomizationSummary === 'function' ? getCustomizationSummary(i) : '';
+        return `<div class="d-flex justify-content-between small mb-1"><span>${i.name} ×${i.qty}${custSummary ? ' <span class="text-muted">('+custSummary+')</span>' : ''}</span><span>₹${i.price*i.qty}</span></div>`;
+      }).join('')}
       <hr/>
       <div class="summary-row"><span>Subtotal</span><span>₹${subtotal}</span></div>
       ${discount?`<div class="summary-row text-success"><span>Discount</span><span>-₹${discount}</span></div>`:''}
-      <div class="summary-row"><span>Delivery</span><span>${deliveryFee?'₹'+deliveryFee:'FREE'}</span></div>
+      <div class="summary-row"><span>Delivery</span><span>${deliveryFee?'₹'+deliveryFee:'<span class="text-success">FREE</span>'}</span></div>
+      ${renderDeliveryFeeBreakdown(deliveryBreakdown)}
       <div class="summary-total"><span>Total</span><span class="text-danger">₹${total}</span></div>`;
   }
+
   function placeOrder() {
     const required = ['name','phone','addr','city','pin'];
     let valid = true;
-    required.forEach(id => { const el = document.getElementById(id); if(!el.value.trim()){el.classList.add('is-invalid');valid=false;}else el.classList.remove('is-invalid'); });
-    if (!valid) { showToast('Please fill all required fields.','danger'); return; }
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!validateField(el)) valid = false;
+    });
+    if (!valid) { showToast('Please fill all required fields correctly.','danger'); return; }
+
+    const cart = getCart();
+    if (!cart.length) { showToast('Your cart is empty!', 'danger'); return; }
+
     const sp = document.getElementById('spinner');
     sp.classList.remove('d-none');
+
+    // Save address
+    const address = {
+      name: document.getElementById('name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      addr: document.getElementById('addr').value.trim(),
+      city: document.getElementById('city').value.trim(),
+      pin: document.getElementById('pin').value.trim()
+    };
+    localStorage.setItem('foodrush_address', JSON.stringify(address));
+
     setTimeout(() => {
       sp.classList.add('d-none');
+
+      // Create order using orders module
+      const totals = getCartTotals();
+      const order = createOrder(cart, totals, address, selPayment);
+
+      // Clear cart
       localStorage.removeItem('foodrush_cart');
       localStorage.removeItem('foodrush_coupon');
-      const ref = 'FR' + Date.now().toString().slice(-8);
-      sessionStorage.setItem('foodrush_order', JSON.stringify({ ref, name: document.getElementById('name').value }));
-      window.location.href = 'order-confirmation.html';
+
+      // Store for confirmation page
+      sessionStorage.setItem('foodrush_order', JSON.stringify({ ref: order.id, name: address.name }));
+
+      // Redirect to tracking
+      window.location.href = 'order-tracking.html?oid=' + order.id;
     }, 2000);
   }
 </script>
